@@ -21,7 +21,7 @@ import type { Conversation, Schedule } from "@/types";
 
 const conversation: Conversation = {
   phoneHash: "hash-1", fullPhone: "+15550000001", stack: "test-dev", region: "us-east-1",
-  messageCount: 3, lastActivity: "2024-07-01", sessionStatus: "active", memoryId: "mem-1",
+  lastActivity: "2024-07-01", memoryId: "mem-1",
 };
 const schedule: Schedule = {
   name: "socialagent-test-dev-reminder-555", stack: "test-dev", state: "ENABLED",

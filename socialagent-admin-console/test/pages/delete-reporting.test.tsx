@@ -24,7 +24,7 @@ const schedule: Schedule = {
 const stateEntry = { phone: "+15550000000", key: "counter#visits", value: 3, ttl: 0 };
 const conversation: Conversation = {
   phoneHash: "hash-1", fullPhone: "+15550000001", stack: "test-dev", region: "us-east-1",
-  messageCount: 3, lastActivity: "2024-07-01", sessionStatus: "active", memoryId: "mem-1",
+  lastActivity: "2024-07-01", memoryId: "mem-1",
 };
 
 afterEach(() => {

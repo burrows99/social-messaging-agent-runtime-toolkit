@@ -44,9 +44,7 @@ function makeConversation(suffix: string): Conversation {
     fullPhone: `+1555000${suffix}`,
     stack: "test-dev",
     region: "us-east-1",
-    messageCount: 3,
     lastActivity: "2024-07-01",
-    sessionStatus: "active",
     memoryId: `mem-${suffix}`,
   };
 }

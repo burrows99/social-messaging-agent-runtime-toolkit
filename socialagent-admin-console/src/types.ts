@@ -71,9 +71,7 @@ export interface Conversation {
   fullPhone: string;
   stack: string;
   region: string;
-  messageCount: number;
   lastActivity: string;
-  sessionStatus: "active" | "ended" | "idle";
   memoryId: string;
 }
 

@@ -35,7 +35,6 @@ import { UnreadableLogsAlert } from "@/components/unreadable-logs-alert";
 const healthType = (h: string) => h === "healthy" ? "success" : h === "recovering" ? "info" : h === "degraded" ? "warning" : "error";
 const statusType = (s: string) => s === "running" ? "success" : s === "stopped" ? "stopped" : "error";
 const deployStatusType = (s: string) => s === "succeeded" ? "success" : s === "failed" ? "error" : "in-progress";
-const sessionStatusType = (s: string) => s === "active" ? "success" : s === "ended" ? "stopped" : "pending";
 const scheduleTypeColor = (t: string) => t === "recurring" ? "blue" : t === "one-shot" ? "grey" : "green";
 
 /**
@@ -489,10 +488,8 @@ function ConversationsTab({ stackId: id }: { stackId: string }) {
           >Conversations</Header>}
           items={items}
           columnDefinitions={[
-            { id: "phone", header: "Phone hash", cell: (c) => <Link variant="primary" onFollow={(e) => { e.preventDefault(); setSelectedConvo(c); }}>{c.phoneHash}</Link>, minWidth: 180 },
-            { id: "messages", header: "Messages", cell: (c) => c.messageCount, minWidth: 100 },
+            { id: "phone", header: "Phone", cell: (c) => <Link variant="primary" onFollow={(e) => { e.preventDefault(); setSelectedConvo(c); }}>{c.phoneHash}</Link>, minWidth: 180 },
             { id: "lastActivity", header: "Last activity", cell: (c) => c.lastActivity, minWidth: 170 },
-            { id: "status", header: "Status", cell: (c) => <StatusIndicator type={sessionStatusType(c.sessionStatus)}>{c.sessionStatus}</StatusIndicator>, minWidth: 130 },
             { id: "memoryId", header: "Memory ID", cell: (c) => <Box variant="code">{c.memoryId}</Box>, minWidth: 180 },
           ]}
           empty={<Box textAlign="center" color="inherit"><Box fontWeight="bold">No conversations</Box></Box>}

@@ -10,7 +10,6 @@ import Select from "@cloudscape-design/components/select";
 import TextFilter from "@cloudscape-design/components/text-filter";
 import Pagination from "@cloudscape-design/components/pagination";
 import CollectionPreferences from "@cloudscape-design/components/collection-preferences";
-import StatusIndicator from "@cloudscape-design/components/status-indicator";
 import Link from "@cloudscape-design/components/link";
 import Box from "@cloudscape-design/components/box";
 import Alert from "@cloudscape-design/components/alert";
@@ -22,8 +21,6 @@ import { useApi } from "@/hooks/use-api";
 import { usePermission } from "@/hooks/use-groups";
 import type { Conversation } from "@/types";
 import { ConversationDetailModal } from "@/components/conversation-detail-modal";
-
-const sessionType = (s: string) => s === "active" ? "success" : s === "ended" ? "stopped" : "pending";
 
 export default function ConversationsPage({ navigate }: { navigate: (href: string) => void }) {
   const [stackFilter, setStackFilter] = useState({ label: "All stacks", value: "all" });
@@ -76,12 +73,10 @@ export default function ConversationsPage({ navigate }: { navigate: (href: strin
           selectedItems={selectedItems}
           onSelectionChange={({ detail }) => setSelectedItems(detail.selectedItems)}
           columnDefinitions={[
-            { id: "phone", header: "Phone hash", minWidth: 200, cell: (c) => <Link variant="primary" onFollow={(e) => { e.preventDefault(); setSelectedConvo(c); }}>{c.phoneHash}</Link> },
+            { id: "phone", header: "Phone", minWidth: 200, cell: (c) => <Link variant="primary" onFollow={(e) => { e.preventDefault(); setSelectedConvo(c); }}>{c.phoneHash}</Link> },
             { id: "stack", header: "Stack", minWidth: 160, cell: (c) => <Link variant="primary" onFollow={(e) => { e.preventDefault(); navigate(`#/stacks/${c.stack}`); }}>{c.stack}</Link> },
             { id: "region", header: "Region", minWidth: 140, cell: (c) => c.region },
-            { id: "messages", header: "Messages", minWidth: 100, cell: (c) => c.messageCount },
             { id: "lastActivity", header: "Last activity", minWidth: 180, cell: (c) => c.lastActivity },
-            { id: "status", header: "Session status", minWidth: 140, cell: (c) => <StatusIndicator type={sessionType(c.sessionStatus)}>{c.sessionStatus}</StatusIndicator> },
             { id: "memoryId", header: "Memory ID", minWidth: 200, cell: (c) => <Box variant="code">{c.memoryId}</Box> },
           ]}
           header={
@@ -97,7 +92,7 @@ export default function ConversationsPage({ navigate }: { navigate: (href: strin
               }
             >Conversations</Header>
           }
-          filter={<TextFilter filteringText={filterText} filteringPlaceholder="Find by phone hash or stack" onChange={({ detail }) => setFilterText(detail.filteringText)} />}
+          filter={<TextFilter filteringText={filterText} filteringPlaceholder="Find by phone or stack" onChange={({ detail }) => setFilterText(detail.filteringText)} />}
           pagination={<Pagination currentPageIndex={1} pagesCount={1} />}
           preferences={<CollectionPreferences title="Preferences" confirmLabel="Confirm" cancelLabel="Cancel" preferences={{ pageSize: 10, wrapLines: false, stripedRows: false }} pageSizePreference={{ title: "Page size", options: [{ value: 10, label: "10" }, { value: 25, label: "25" }] }} />}
           empty={<Box textAlign="center" color="inherit"><Box fontWeight="bold" color="inherit" padding={{ bottom: "s" }}>No conversations</Box><Box variant="p" color="inherit">No conversations have been recorded yet.</Box></Box>}

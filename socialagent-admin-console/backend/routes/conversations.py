@@ -557,7 +557,6 @@ def _list_conversations(config, cursor=None, page_size=25):
             "stack": stack_id,
             "region": region,
             "lastActivity": last_activity,
-            "sessionStatus": "active",
             "memoryId": memory_id,
         })
     return conversations, next_token

@@ -91,6 +91,27 @@ def test_response_shape_is_object_with_conversations(mock_agentcore):
     assert body["conversations"][0]["fullPhone"] == "15555550100"
 
 
+def test_row_carries_only_what_the_list_reads(mock_agentcore):
+    """The list reads one event per user: it counts no messages and does not
+    check whether a session is active, so a row claims neither."""
+    import routes.conversations as handler_mod
+
+    mock_agentcore.list_actors.return_value = {
+        "actorSummaries": [_actor("15555550100")],
+        "nextToken": None,
+    }
+    resp = handler_mod.handle_get_conversations({"id": "socialagent-dev"}, {})
+
+    assert json.loads(resp["body"])["conversations"] == [{
+        "phoneHash": "1555...0100",
+        "fullPhone": "15555550100",
+        "stack": "socialagent-dev",
+        "region": "us-east-1",
+        "lastActivity": "2026-05-01T00:00:00Z",
+        "memoryId": "dev_socialagent_memory-xyz",
+    }]
+
+
 def test_next_token_included_when_more_pages_exist(mock_agentcore):
     import routes.conversations as handler_mod
 
